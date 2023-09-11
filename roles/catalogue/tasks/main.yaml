@@ -9,6 +9,19 @@
 - name: SetUp Application
   ansible.builtin.import_role:
     name: common
-    tasks_from: app-setup.yaml
+    tasks_from: app-setup
 
+- name: install dependencies
+  ansible.builtin.command: npm install
+  args:
+    chdir: /app  #chdir-->change directory
 
+- name: load schema
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: load-mongo-repo
+
+- name: setup application
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: systemd-setup
