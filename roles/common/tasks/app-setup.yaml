@@ -1,0 +1,41 @@
+- name: check user exists or not
+  ansible.builtin.command: id roboshop
+  register: out #out is variable
+  ignore_errors: true # for ignore errors in the execution without exiting
+
+- when: out.rc !=0 #condition with expression 
+  #out.rc !=0; !--> not equal to; 0 is success, 1 is failure;  
+  #out.rc-->rc=0 or rc=1. is like { (variable).(key)-->key:value pair } ie called (nested format)
+  #out(variable).rc(key)-->rc(key)=1or0(value), if rc=1 failure 
+  name: create user roboshop
+  become: yes
+  ansible.builtin.user:
+    name: roboshop
+
+- name: check /app directory exists or not
+  ansible.builtin.stat: #checks the statistics
+    path: /app
+  register: directory #directory is variable
+
+  #print statistics of directory
+- name: print directory stats
+  ansible.builtin.debug:
+    msg: "output is: {{directory}}"
+    
+- when: directory.stat.exists == False #boolean ; False -not exists.(directory.stat.exists) is from error execution
+  name: create /app directory
+  ansible.builtin.file:
+    path: /app
+    state: directory
+
+- name: "download {{component}} artifact"  
+  ansible.builtin.get_url:
+    url : "https://roboshop-builds.s3.amazonaws.com/{{component}}.zip"
+    dest: /tmp 
+  #execute untill this again
+  
+- name: extract {{component}} artifact
+  ansible.builtin.unarchive:
+    src: /tmp/{{component}}.zip
+    dest: /app
+    remote_src: yes
