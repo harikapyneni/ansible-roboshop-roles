@@ -1,12 +1,12 @@
 - name: copy mongo repo to yum.repos.d
-    ansible.builtin.copy:
-      src: mongodb.repo # file in mongodb 
-      dest: /etc/yum.repos.d/mongo.repo
+  ansible.builtin.copy:
+    src: mongodb.repo # file in mongodb 
+    dest: /etc/yum.repos.d/mongo.repo
 
-  - name: install mongodb client
-    ansible.builtin.yum:
-      name: mongodb-org-shell
-      state: installed
+- name: install mongodb client
+  ansible.builtin.yum:
+    name: mongodb-org-shell
+    state: installed
 
-  - name: load {{component}} data #schema
-    ansible.builtin.shell: mongo --host mongodb.ops2ai.cloud < /app/schema/{{component}}.js
+- name: load {{component}} data #schema
+  ansible.builtin.shell: mongo --host mongodb.ops2ai.cloud < /app/schema/{{component}}.js
