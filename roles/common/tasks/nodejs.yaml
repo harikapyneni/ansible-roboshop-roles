@@ -1,0 +1,7 @@
+- name : Setup NPM source #refere RoboShop-Documentation
+  ansible.builtin.shell: "curl -sL https://rpm.nodesource.com/setup_lts.x | bash" #execute until this part,yellow=loading
+  
+- name: Install Nodejs
+  ansible.builtin.yum:
+    name: nodejs
+    state: installed

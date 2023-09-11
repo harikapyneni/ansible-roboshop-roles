@@ -1,0 +1,7 @@
+#tasks from catalogue.yaml in ansible-roboshop
+#we need to import nodejs.yaml in common(role) --> to this main.yaml in catalogue(role)
+  
+- name: Install Nodejs
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: nodejs
