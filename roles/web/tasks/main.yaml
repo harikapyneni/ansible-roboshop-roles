@@ -32,11 +32,11 @@
     dest: /usr/share/nginx/html
     remote_src: yes
 
+  # as we created templates-->roboshop.conf.j2 (catalogue,user,cart,shipping,payment-- place holders) with values in vars-->main.yaml 
+  #when we did any changes in this file this notify restart nginx and search for directory called handlers
 - name: copy roboshop.conf.j2
-  # as we created templates-->roboshop.conf.j2 (catalogue,user,cart,shipping,payment-- place holders) with values in vars-->main.yaml
   ansible.builtin.template: #template module
     src: roboshop.conf.j2
-    dest: /etc/nginx/default.d/roboshop.conf 
-  #when we did any changes in this file this notify restart nginx and search for directory called handlers 
+    dest: /etc/nginx/default.d/roboshop.conf  
   notify: 
   - restart nginx #ref (handlers-->main.yaml)
