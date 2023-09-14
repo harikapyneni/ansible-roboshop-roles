@@ -1,4 +1,3 @@
-# last task in tasks-->main.yaml , notify module uses this file while execution
 - name: restart nginx
   service: 
     name: nginx
