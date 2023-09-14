@@ -1,0 +1,6 @@
+#vars-->main.yaml are variable values of place holder in templates-->roboshop.conf.j2
+CATALOGUE_HOST: catalogue.ops2ai.cloud
+USER_HOST: user.ops2ai.cloud
+CART_HOST: cart.ops2ai.cloud
+SHIPPING_HOST: shipping.ops2ai.cloud
+PAYMENT_HOST: payment.ops2ai.cloud

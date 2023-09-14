@@ -1,0 +1,42 @@
+- name: install nginx
+  ansible.builtin.yum:
+    name: nginx
+    state: installed
+
+- name: start and enable nginx
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: yes
+
+ #we have 2 options for removing: 1. Remove Directory & Create again. 2. Remove Files From html Directory & Reload again which is hard ,so using 1st option 
+
+- name: remove html directory
+  ansible.builtin.file:
+    path: /usr/share/nginx/html/
+    state: absent #absent means remove
+
+- name: create html directory
+  ansible.builtin.file:
+    path: /usr/share/nginx/html/
+    state: directory
+
+- name: download web artifact #frontend content
+  ansible.builtin.get_url:
+    url: https://roboshop-builds.s3.amazonaws.com/web.zip
+    dest: /tmp
+
+- name: unzip or unarchive web.zip
+  ansible.builtin.unarchive:
+    src: /tmp/web.zip
+    dest: /usr/share/nginx/html
+    remote_src: yes
+
+- name: copy roboshop.conf.j2
+  # as we created templates-->roboshop.conf.j2 (catalogue,user,cart,shipping,payment-- place holders) with values in vars-->main.yaml
+  ansible.builtin.template: #template module
+    src: roboshop.conf.j2
+    dest: /etc/nginx/default.d/roboshop.conf 
+  #when we did any changes in this file this notify restart nginx and search for directory called handlers 
+  notify: 
+  - restart nginx #ref (handlers-->main.yaml)
