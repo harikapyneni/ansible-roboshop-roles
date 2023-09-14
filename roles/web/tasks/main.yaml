@@ -9,8 +9,9 @@
     state: started
     enabled: yes
 
- #we have 2 options for removing: 1. Remove Directory & Create again. 2. Remove Files From html Directory & Reload again which is hard ,so using 1st option 
 
+ #we have 2 options for removing: 1. Remove Directory & Create again 
+ #2. Remove Files From html Directory & Reload again which is hard ,so using 1st option
 - name: remove html directory
   ansible.builtin.file:
     path: /usr/share/nginx/html/
