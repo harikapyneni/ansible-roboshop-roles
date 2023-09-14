@@ -1,0 +1,19 @@
+- name: Install Python
+  ansible.builtin.import_role:
+    name: common #role
+    tasks_from: python #python.yaml
+
+- name: SetUp Application
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: app-setup #app-setup.yaml
+
+- name: Install dependencies
+  ansible.builtin.command: pip3.6 install -r requirements.txt
+  args:
+    chdir: /app #payment.yaml in asnible-roboshop
+
+- name: Start application
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: systemd-setup #systemd-setup.yaml
