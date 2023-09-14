@@ -10,7 +10,7 @@
     enabled: yes
 
  #we have 2 options for removing: 1. Remove Directory & Create again 
- #2. Remove Files From html Directory & Reload again which is hard ,so using 1st option
+ #2.Remove Files From html Directory & Reload again which is hard ,so using 1st option
 - name: remove html directory
   ansible.builtin.file:
     path: /usr/share/nginx/html/
@@ -34,7 +34,7 @@
 
   # as we created templates-->roboshop.conf.j2 (catalogue,user,cart,shipping,payment-- place holders) with values in vars-->main.yaml 
   #when we did any changes in this file this notify restart nginx and search for directory called handlers
-- name: copy roboshop.conf.j2
+- name: copy roboshop.conf
   ansible.builtin.template: #template module
     src: roboshop.conf.j2
     dest: /etc/nginx/default.d/roboshop.conf
