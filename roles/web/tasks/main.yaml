@@ -2,6 +2,7 @@
   ansible.builtin.yum:
     name: nginx
     state: installed
+    ignore_errors: yes
 
 - name: start and enable nginx
   ansible.builtin.service:
@@ -34,5 +35,9 @@
   ansible.builtin.template:
     src: roboshop.conf.j2
     dest: /etc/nginx/default.d/roboshop.conf
+    owner: root
+    group: root
+    mode: '0600'
+    diff: false
   notify:
   - restart nginx
