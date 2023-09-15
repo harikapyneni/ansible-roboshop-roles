@@ -3,13 +3,11 @@
     name: nginx
     state: installed
     
-
 - name: start and enable nginx
   ansible.builtin.service:
     name: nginx
     state: started
     enabled: yes
-    ignore_errors: yes
     
 - name: remove html directory
   ansible.builtin.file:
@@ -34,11 +32,7 @@
 
 - name: copy roboshop.conf
   ansible.builtin.template:
-    src: roboshop.conf.j2
+    src: roboshop.conf
     dest: /etc/nginx/default.d/roboshop.conf
-    owner: root
-    group: root
-    mode: '0600'
-    diff: false
   notify:
   - restart nginx
