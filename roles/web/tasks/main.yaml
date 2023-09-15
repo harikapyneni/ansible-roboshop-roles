@@ -2,13 +2,14 @@
   ansible.builtin.yum:
     name: nginx
     state: installed
-    ignore_errors: yes
+    
 
 - name: start and enable nginx
   ansible.builtin.service:
     name: nginx
     state: started
     enabled: yes
+    ignore_errors: yes
     
 - name: remove html directory
   ansible.builtin.file:
